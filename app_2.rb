@@ -3,16 +3,17 @@ Bundler.require
 
 require_relative 'lib/game'
 require_relative 'lib/player'
+require_relative 'lib/puts_slow'
 
-puts "------------------------------------------------
+puts_slow "------------------------------------------------
 |Bienvenue sur 'ILS VEULENT TOUS MA POO' !      |
 |Le but du jeu est d'être le dernier survivant !|
 -------------------------------------------------"
 
-puts "Quel est ton nom de guerre ?"
+puts_slow "Quel est ton nom de guerre ?"
 print ">>"
 player = HumanPlayer.new(gets.chomp.to_s)
-puts ""
+puts_slow ""
 
 def random_name
   ["Carapuce", "Salamèche", "Bulbizarre", "Lipoutou",
@@ -29,7 +30,7 @@ def create_enemies (number)
     end
     bot = Player.new(random_name)
     arr << bot
-    puts "Un #{bot.name} sauvage apparaît !!"
+    puts_slow "Un #{bot.name} sauvage apparaît !!"
   }
   arr
 end
@@ -37,29 +38,29 @@ end
 def player_action (player, enemies)
   action = nil
   until ["a","b","c"].include?(action)
-    puts "Que vas tu faire ?
+    puts_slow "Que vas tu faire ?
     a - attaquer
     b - chercher une arme
     c - chercher une potion"
     print ">>"
     action = gets.chomp.to_s
     if !["a","b","c"].include?(action)
-      puts "... je n'ai pas compris, a b ou c..."
+      puts_slow "... je n'ai pas compris, a b ou c..."
     end
   end
   case action
   when "a"
     action = nil
     until (0..(enemies.length-1)).to_a.include?(action)
-      puts "Quel ennemi attaquer ?"
+      puts_slow "Quel ennemi attaquer ?"
       for ix in 0..(enemies.length-1)
         e = enemies[ix]
-        puts "#{ix} - #{e.name} qui a #{e.hp} points de vie ?"
+        puts_slow "#{ix} - #{e.name} qui a #{e.hp} points de vie ?"
       end
       print ">>"
       action = gets.chomp.to_i
       if !(0..(enemies.length-1)).to_a.include?(action)
-        puts "... je n'ai pas compris, tape l'index de l'ennemi..."
+        puts_slow "... je n'ai pas compris, tape l'index de l'ennemi..."
       end
     end
     player.attacks(enemies[action])
@@ -71,11 +72,11 @@ def player_action (player, enemies)
 end
 
 enemies = create_enemies (2)
-puts ""
+puts_slow ""
 count = 0
 until player.dead || enemies.select{|e| e.dead} == enemies
   count +=1
-  puts "<<<<<<<< ROUND #{count} >>>>>>>>>"
+  puts_slow "<<<<<<<< ROUND #{count} >>>>>>>>>"
   player.show_state
   enemies.each {
     |e|
@@ -90,6 +91,6 @@ until player.dead || enemies.select{|e| e.dead} == enemies
   }
 end
 
-puts ">>>fin de la partie"
-puts player.dead ? "... tu as perdu" : "BRAVO tu as gagné !!!
+puts_slow ">>>fin de la partie"
+puts_slow player.dead ? "... tu as perdu" : "BRAVO tu as gagné !!!
 voilà le badge #{["PIERRE","EAU","FEU","AIR"].sample}"
