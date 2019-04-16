@@ -35,7 +35,7 @@ class Game
     else
       puts_slow "!!!!!!!!!!!!! FINAL FIGHT !!!!!!!!!!!!!!!!!!!"
       @enemies << HumanPlayer.new("SACHATTE", skill = 4)
-      @enemies[O].hp = 1000
+      @enemies.first.hp = 1000
       puts_slow "voila ton dernier ennemi, ta nemesis, pourra tu le vaincre ?"
     end
     puts_slow "(appuie sur une touche pour continuer)"
