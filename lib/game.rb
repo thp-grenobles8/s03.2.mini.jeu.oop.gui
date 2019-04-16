@@ -17,8 +17,8 @@ class Game
     while !player.dead && @fight_count < 4
       fight
     end
-    fight(boss = true)
-    if !@player.dead #si tu as gagné 12 combats
+    if !@player.dead
+      fight(boss = true)
       puts_slow "TU AS GAGNE TOUS LES COMBATS, TE VOILA CHAMPION"
       puts_slow "bravo champion... see you next game"
     else
